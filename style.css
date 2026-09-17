@@ -620,6 +620,7 @@ input { font: inherit; color: inherit; }
     animation: formIn var(--dur-3) var(--ease) both;
 }
 .list-placeholder .icon { width: 30px; height: 30px; color: var(--ink-500); }
+.list-placeholder span { max-width: 30ch; text-wrap: balance; }
 
 .sidebar-footer {
     display: flex;
@@ -932,7 +933,8 @@ input { font: inherit; color: inherit; }
 }
 .empty-state__icon .icon { width: 58px; height: 58px; stroke-width: 1.1; }
 .empty-state h2 { font-size: var(--fs-xl); color: var(--text); }
-.empty-state p { font-size: var(--fs-base); }
+.empty-state p { font-size: var(--fs-base); max-width: 38ch; text-wrap: balance; }
+.empty-state .btn { margin-top: 6px; }
 
 /* ============================ Модалки ===================================== */
 

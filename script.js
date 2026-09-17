@@ -61,6 +61,9 @@ const elements = {
     chatStatus: document.getElementById('chat-status'),
     chatAvatar: document.getElementById('chat-avatar'),
     emptyState: document.getElementById('empty-state'),
+    emptyStatePick: document.getElementById('empty-state-pick'),
+    emptyStateFirst: document.getElementById('empty-state-first'),
+    emptyNewChatBtn: document.getElementById('empty-new-chat-btn'),
     messageInputContainer: document.getElementById('message-input-container'),
     searchInput: document.getElementById('search-input'),
     newChatModal: document.getElementById('new-chat-modal'),
@@ -201,6 +204,7 @@ function resetAppState() {
     elements.messageInputContainer.classList.add('hidden');
     elements.emptyState.classList.remove('hidden');
     elements.mainContent.classList.remove('has-chat');
+    setEmptyStateMode(false);
     elements.searchInput.value = '';
     setMobileView('list');
 }
@@ -351,6 +355,7 @@ function setupEventListeners() {
 
     /* ---- Чаты ---- */
     elements.newChatBtn.addEventListener('click', () => openModal(elements.newChatModal));
+    elements.emptyNewChatBtn.addEventListener('click', () => openModal(elements.newChatModal));
     elements.createChatBtn.addEventListener('click', createChat);
     elements.joinChatBtn.addEventListener('click', joinChat);
     elements.backToListBtn.addEventListener('click', () => setMobileView('list'));
@@ -653,6 +658,14 @@ function renderChatsSkeleton(count = 6) {
     }
 }
 
+/* На аккаунте без чатов «выберите чат слева» отправляет в пустой список,
+   поэтому текст и кнопка меняются на предложение создать первый чат. */
+function setEmptyStateMode(isFirstRun) {
+    elements.emptyStatePick.hidden = isFirstRun;
+    elements.emptyStateFirst.hidden = !isFirstRun;
+    elements.emptyNewChatBtn.hidden = !isFirstRun;
+}
+
 function renderListPlaceholder(iconName, text) {
     const box = el('div', 'list-placeholder');
     box.appendChild(icon(iconName));
@@ -703,8 +716,9 @@ async function loadChats() {
     chatsLoadedOnce = true;
 
     const chats = data.chats || [];
+    setEmptyStateMode(chats.length === 0);
     if (chats.length === 0) {
-        renderListPlaceholder('inbox', 'Чатов пока нет. Создайте первый или вступите по коду.');
+        renderListPlaceholder('inbox', 'Чатов пока нет — создайте первый или вступите по коду.');
         return;
     }
 

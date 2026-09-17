@@ -210,7 +210,12 @@
                 <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-bubbles"></use></svg>
             </span>
             <h2>Добро пожаловать в Nyxo</h2>
-            <p>Выберите чат слева или создайте новый</p>
+            <p id="empty-state-pick">Выберите чат слева или создайте новый</p>
+            <p id="empty-state-first" hidden>Чатов пока нет — создайте первый или вступите в существующий по коду приглашения.</p>
+            <button id="empty-new-chat-btn" class="btn btn--primary" type="button" hidden>
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg>
+                <span>Создать чат</span>
+            </button>
         </div>
     </main>
 </div>
